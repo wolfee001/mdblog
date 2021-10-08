@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import CategoryTab from '../components/CategoryTab';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import SearchBar from '../components/SearchBar';
+import { topCategories } from '../data';
 
 const Container = styled.div`
     width: 100vw;
@@ -14,26 +16,45 @@ const Container = styled.div`
 `;
 
 const MainPanel = styled.div`
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding-top: 20px;
 `;
 
 const SearchContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 30px 0px;
+    margin: 30px 0px 10px 0px;
+`;
+
+const CategoryContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+`;
+
+const FooterContainer = styled.div`
+    margin-top: 10px;
 `;
 
 const Home = () => {
   return (
     <Container>
       <NavBar />
+      <SearchContainer>
+        <SearchBar />
+      </SearchContainer>
       <MainPanel>
-        <SearchContainer>
-          <SearchBar />
-        </SearchContainer>
+        <CategoryContainer>
+          {topCategories.map(element => (<CategoryTab key={element} cat={element} />))}
+        </CategoryContainer>
       </MainPanel>
-      <Footer />
+      <FooterContainer>
+        <Footer />
+      </FooterContainer>
     </Container>
   );
 };
