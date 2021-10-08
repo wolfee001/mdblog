@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
+import SearchBar from '../components/SearchBar';
 
 const Container = styled.div`
     width: 100vw;
@@ -16,11 +17,22 @@ const MainPanel = styled.div`
     flex: 1;
 `;
 
+const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0px;
+`;
+
 const Home = () => {
   return (
     <Container>
       <NavBar />
-      <MainPanel />
+      <MainPanel>
+        <SearchContainer>
+          <SearchBar />
+        </SearchContainer>
+      </MainPanel>
       <Footer />
     </Container>
   );
