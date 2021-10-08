@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { topCategories } from '../data';
 
 const Container = styled.div`
     background-color: rgba(255, 255, 255, 0.4);
@@ -24,6 +25,7 @@ const Input = styled.input`
     width: 90%;
     height: 50%;
     font-size: 18px;
+    padding: 5px 10px;
 `;
 
 const QuickCategoryContainer = styled.div`
@@ -45,13 +47,7 @@ const SearchBar = () => {
         <Input type='text' placeholder='Search for some blog posts...' />
       </InputContainer>
       <QuickCategoryContainer>
-        <QuickCategory>Culture</QuickCategory>
-        <QuickCategory>Life&Style</QuickCategory>
-        <QuickCategory>Outside</QuickCategory>
-        <QuickCategory>Gastro</QuickCategory>
-        <QuickCategory>Tech</QuickCategory>
-        <QuickCategory>Sports</QuickCategory>
-        <QuickCategory>Personal</QuickCategory>
+        {topCategories.map(item => (<QuickCategory key={item}>{item}</QuickCategory>))}
       </QuickCategoryContainer>
     </Container>
   );
