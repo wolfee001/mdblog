@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
+import Post from './pages/Post';
 
 const Container = styled.div`
     background-color: lightblue;
@@ -27,7 +28,7 @@ function App () {
     <Container>
       <NavBar />
       <ScrollArea>
-        <Home />
+        <Post />
       </ScrollArea>
       <FooterContainer>
         <Footer />
