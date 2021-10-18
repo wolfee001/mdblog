@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDarkMode } from '../redux/localSettingsRedux';
 
 const Container = styled.div`
     height: 60px;
@@ -40,6 +44,13 @@ const MenuItem = styled.div`
 `;
 
 const NavBar = () => {
+  const darkMode = useSelector(state => state.localSettings.darkMode);
+  const dispatch = useDispatch();
+
+  const changeMode = () => {
+    dispatch(setDarkMode(!darkMode));
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -49,6 +60,9 @@ const NavBar = () => {
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>LOGIN</MenuItem>
+          <MenuItem>
+            {darkMode ? <LightModeIcon onClick={() => changeMode()} /> : <DarkModeIcon onClick={() => changeMode()} />}
+          </MenuItem>
         </Right>
       </Wrapper>
     </Container>
