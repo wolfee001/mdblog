@@ -21,7 +21,7 @@ const SearchContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 30px 0px 10px 0px;
+    margin: 0px 0px 10px 0px;
 `;
 
 const CategoryContainer = styled.div`

@@ -6,6 +6,7 @@ import slug from 'remark-slug';
 import toc from 'remark-toc';
 import highlight from 'rehype-highlight';
 import { singleArticle } from '../data';
+import '../style/md.css';
 
 const Container = styled.div`
     flex: 1;
@@ -68,6 +69,8 @@ const Category = styled.h4`
 const TextContainer = styled.div`
     width: 90%;
     max-width: 800px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.4);
 `;
 
 const Post = () => {
