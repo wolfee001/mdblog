@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 // import Home from './pages/Home';
-import Post from './pages/Post';
+// import Post from './pages/Post';
+import Register from './pages/Register';
 
 const Container = styled.div`
     background-color: ${props => props.darkMode ? 'black' : 'lightblue'};
@@ -32,7 +33,7 @@ function App () {
     <Container darkMode={darkMode}>
       <NavBar />
       <ScrollArea>
-        <Post />
+        <Register />
       </ScrollArea>
       <FooterContainer>
         <Footer />
