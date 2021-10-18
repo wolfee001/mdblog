@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import Post from './pages/Post';
 
 const Container = styled.div`
