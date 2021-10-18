@@ -19,7 +19,6 @@ const Wrapper = styled.div`
 `;
 
 const Left = styled.div`
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -34,11 +33,9 @@ const Text = styled.span`
     margin: 5px 0px;
     align-items: center;
     justify-content: center;
-    text-align: center;
 `;
 
 const Center = styled.div`
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,7 +44,6 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-    flex: 1;
     display: flex;
     padding: 0px 10px;
     align-items: flex-end;
