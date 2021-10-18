@@ -2,9 +2,11 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
+import Login from './pages/Login';
+// import ModifyUser from './pages/ModifyUser';
 // import Home from './pages/Home';
 // import Post from './pages/Post';
-import Register from './pages/Register';
+// import Register from './pages/Register';
 
 const Container = styled.div`
     background-color: ${props => props.darkMode ? 'black' : 'lightblue'};
@@ -33,7 +35,7 @@ function App () {
     <Container darkMode={darkMode}>
       <NavBar />
       <ScrollArea>
-        <Register />
+        <Login />
       </ScrollArea>
       <FooterContainer>
         <Footer />
