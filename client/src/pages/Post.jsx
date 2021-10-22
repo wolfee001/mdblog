@@ -19,7 +19,7 @@ const Info = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 `;
 
 const ImgContainer = styled.div`
@@ -44,7 +44,7 @@ const AuthorContainer = styled.div`
 `;
 
 const AuthorText = styled.h3`
-    margin: 0px 5px;
+    margin: 0 0.5rem;
 `;
 
 const Author = styled.h3`
@@ -58,18 +58,18 @@ const CategoriesContainer = styled.div`
 `;
 
 const CategoryText = styled.h4`
-    margin: 0px 10px;
+    margin: 0 1rem;
 `;
 
 const Category = styled.h4`
-    margin: 0px 5px;
+    margin: 0 0.5rem;
     cursor: pointer;
 `;
 
 const TextContainer = styled.div`
     width: 90%;
     max-width: 800px;
-    padding: 15px;
+    padding: 1rem;
     background-color: rgba(255, 255, 255, 0.4);
 `;
 
