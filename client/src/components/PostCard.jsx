@@ -11,11 +11,20 @@ const Info = styled.div`
     padding: 5px;
     flex: 1;
     background-color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: ${props => props.imagePosition === 'top' ? 'column' : 'row'};
 `;
 
 const Image = styled.img`
     width: 100%;
+    max-width: ${props => props.imagePosition === 'top' ? '-1' : '200'}px;
     height: auto;
+`;
+
+const Texts = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-left: ${props => props.imagePosition === 'top' ? '0' : '1'}rem;
 `;
 
 const Title = styled.h4`
@@ -31,14 +40,16 @@ const Short = styled.p`
     font-size: 14px;
 `;
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, imagePosition = 'top' }) => {
   return (
     <Container>
-      <Info>
-        <Image src={post.img} />
-        <Title>{post.title}</Title>
-        <Author>{post.author}</Author>
-        <Short>{post.short}</Short>
+      <Info imagePosition={imagePosition}>
+        <Image src={post.img} imagePosition={imagePosition} />
+        <Texts>
+          <Title>{post.title}</Title>
+          <Author>{post.author}</Author>
+          <Short>{post.short}</Short>
+        </Texts>
       </Info>
     </Container>
   );
