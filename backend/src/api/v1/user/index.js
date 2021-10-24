@@ -40,4 +40,13 @@ router.post('/modify', verifyToken, async (req, res) => {
   }
 });
 
+router.delete('/delete', verifyToken, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.user.id);
+    res.status(200).json({ status: 'ok' });
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
 module.exports = router;
