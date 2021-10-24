@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
+import { login } from '../redux/apiCalls';
 
 const Container = styled.div`
     flex: 1;
@@ -18,6 +21,14 @@ const LoginInfoContainer = styled.div`
 
 const Title = styled.h1`
     padding-bottom: 1rem;
+`;
+
+const ErrorText = styled.h3`
+    padding-bottom: 1rem;
+    color: red;
+`;
+
+const TitleGroup = styled.div`
 `;
 
 const InputTitle = styled.h3`
@@ -47,23 +58,44 @@ const Button = styled.button`
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    &:disabled {
+      background-color: rgba(128, 128, 128, 0.4);
+      color: #777
+    }
 `;
 
 const Login = () => {
+  const [loginData, setLoginData] = useState({ username: null, password: null });
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const authState = useSelector(state => state.authenticationState);
+  const user = useSelector(state => state.localSettings.user);
+
+  useEffect(() => {
+    if (user.currentUser) {
+      history.push('/');
+    }
+  }, [user, history]);
+
   return (
     <Container>
       <LoginInfoContainer>
-        <Title>Login</Title>
+        <TitleGroup>
+          <Title>Login</Title>
+          {authState.error && <ErrorText>Username or password invalid!</ErrorText>}
+        </TitleGroup>
         <InputGroup>
           <InputTitle>Username</InputTitle>
-          <Input placeholder='carter' />
+          <Input placeholder='carter' onChange={(event) => { setLoginData(u => { return { ...u, username: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
           <InputTitle>Password</InputTitle>
-          <Input placeholder='ILoveAbby123' type='password' />
+          <Input placeholder='ILoveAbby123' type='password' onChange={(event) => { setLoginData(u => { return { ...u, password: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
-          <Button>LOGIN</Button>
+          <Button onClick={() => login(dispatch, loginData)} disabled={authState.fetching}>LOGIN</Button>
         </InputGroup>
       </LoginInfoContainer>
     </Container>

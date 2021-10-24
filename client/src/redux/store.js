@@ -11,6 +11,7 @@ import {
   REGISTER
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import authenticationStateRedux from './authenticationStateRedux';
 
 const persistConfig = {
   key: 'root',
@@ -22,7 +23,8 @@ const persistedReducer = persistReducer(persistConfig, localSettingsRedux);
 
 export const store = configureStore({
   reducer: {
-    localSettings: persistedReducer
+    localSettings: persistedReducer,
+    authenticationState: authenticationStateRedux
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

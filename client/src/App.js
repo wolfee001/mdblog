@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 // import SearchResults from './pages/SearchResults';
 // import Profile from './pages/Profile';
 import Login from './pages/Login';
-// import ModifyUser from './pages/ModifyUser';
+import ModifyUser from './pages/ModifyUser';
 import Home from './pages/Home';
 // import Post from './pages/Post';
 import Register from './pages/Register';
@@ -41,16 +41,19 @@ function App () {
         <NavBar />
         <ScrollArea>
           <Switch>
-              <Route exact path='/'>
-            <Home />
-          </Route>
-              <Route exact path='/login'>
-            <Login />
-          </Route>
-              <Route exact path='/register'>
-            <Register />
-          </Route>
-            </Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route exact path='/login'>
+              <Login />
+            </Route>
+            <Route exact path='/register'>
+              <Register />
+            </Route>
+            <Route exact path='/modify'>
+              <ModifyUser />
+            </Route>
+          </Switch>
         </ScrollArea>
       </Router>
       <FooterContainer>

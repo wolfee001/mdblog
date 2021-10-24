@@ -55,7 +55,7 @@ const CategoryTab = ({ cat }) => {
           <Empty />
         </TabNameWrapper>
         <PostList>
-          {shuffle(mainPageArticles).map(element => (<PostCard post={element} />))}
+          {shuffle(mainPageArticles).map(element => (<PostCard post={element} key={element.id} />))}
         </PostList>
       </Wrapper>
     </Container>

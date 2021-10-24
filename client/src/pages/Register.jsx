@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Avatar from 'react-avatar';
+import { useFilePicker } from 'use-file-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../redux/apiCalls';
+import { useHistory } from 'react-router';
 
 const Container = styled.div`
     flex: 1;
@@ -19,6 +23,14 @@ const RegisterInfoContainer = styled.div`
 
 const Title = styled.h1`
     padding-bottom: 1rem;
+`;
+
+const ErrorText = styled.h3`
+    padding-bottom: 1rem;
+    color: red;
+`;
+
+const TitleGroup = styled.div`
 `;
 
 const InputTitle = styled.h3`
@@ -95,42 +107,86 @@ const Button = styled.button`
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    &:disabled {
+      background-color: rgba(128, 128, 128, 0.4);
+      color: #777
+    }
+`;
+
+const AvatarContainer = styled.div`
+    flex: 2;
 `;
 
 const Register = () => {
+  const [openFileSelector, { filesContent }] = useFilePicker({
+    readAs: 'DataURL',
+    accept: 'image/*',
+    multiple: false,
+    limitFilesConfig: { max: 2 },
+    // minFileSize: 1,
+    maxFileSize: 2 // in megabytes
+  });
+
+  const [userData, setUserData] = useState({ username: null, email: null, password: null, name: null, avatar: null, emailIsPublic: true });
+
+  useEffect(() => {
+    if (filesContent.length) {
+      setUserData(u => { return { ...u, avatar: filesContent[0].content }; });
+    }
+  }, [filesContent]);
+
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.localSettings.user);
+  const history = useHistory();
+
+  const authState = useSelector(state => state.authenticationState);
+
+  useEffect(() => {
+    if (user.currentUser) {
+      history.push('/');
+    }
+  }, [user, history]);
+
   return (
     <Container>
       <RegisterInfoContainer>
-        <Title>Register</Title>
+        <TitleGroup>
+          <Title>Register</Title>
+          {authState.error && <ErrorText>Something went wrong!</ErrorText>}
+        </TitleGroup>
         <InputGroup>
           <InputTitle>Username</InputTitle>
-          <Input placeholder='carter' />
+          <Input placeholder='carter' onChange={(event) => { setUserData(u => { return { ...u, username: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
           <InputTitle>Email</InputTitle>
-          <Input placeholder='jcarter@county-general.org' />
+          <Input placeholder='jcarter@county-general.org' onChange={(event) => { setUserData(u => { return { ...u, email: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
           <InputTitle>Password</InputTitle>
-          <Input placeholder='ILoveAbby123' type='password' />
+          <Input placeholder='ILoveAbby123' type='password' onChange={(event) => { setUserData(u => { return { ...u, password: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
           <InputTitle>Name</InputTitle>
-          <Input placeholder='John Carter' />
+          <Input placeholder='John Carter' onChange={(event) => { setUserData(u => { return { ...u, name: event.target.value }; }); }} />
         </InputGroup>
         <InputGroup>
           <InputTitle>Avatar</InputTitle>
-          <Avatar value='carter' round style={{ flex: 2 }} src='https://upload.wikimedia.org/wikipedia/en/9/99/Dr_carter.jpg' />
+          <AvatarContainer>
+            <Avatar value={userData.username || 'carter'} round style={{ margin: 0, padding: 0, cursor: 'pointer' }} onClick={() => openFileSelector()} src={userData.avatar} />
+          </AvatarContainer>
         </InputGroup>
         <InputGroup>
           <InputTitle>Email address is public</InputTitle>
           <CheckBoxWrapper>
-            <CheckBox id='checkbox' type='checkbox' />
+            <CheckBox id='checkbox' type='checkbox' checked={userData.emailIsPublic} onChange={() => setUserData({ ...userData, emailIsPublic: !userData.emailIsPublic })} />
             <CheckBoxLabel htmlFor='checkbox' />
           </CheckBoxWrapper>
         </InputGroup>
         <InputGroup>
-          <Button>REGISTER</Button>
+          <Button onClick={() => register(dispatch, userData)} disabled={authState.fetching}>REGISTER</Button>
         </InputGroup>
       </RegisterInfoContainer>
     </Container>
