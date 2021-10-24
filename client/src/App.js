@@ -16,6 +16,7 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.5s ease;
 `;
 
 const ScrollArea = styled.div`
