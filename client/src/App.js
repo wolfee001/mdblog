@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
-import Profile from './pages/Profile';
+import SearchResults from './pages/SearchResults';
+// import Profile from './pages/Profile';
 // import Login from './pages/Login';
 // import ModifyUser from './pages/ModifyUser';
 // import Home from './pages/Home';
@@ -37,7 +38,7 @@ function App () {
     <Container darkMode={darkMode}>
       <NavBar />
       <ScrollArea>
-        <Profile />
+        <SearchResults title="Search results for 'lorem'" />
       </ScrollArea>
       <FooterContainer>
         <Footer />
