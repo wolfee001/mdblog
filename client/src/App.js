@@ -2,13 +2,14 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
-import SearchResults from './pages/SearchResults';
+// import SearchResults from './pages/SearchResults';
 // import Profile from './pages/Profile';
-// import Login from './pages/Login';
+import Login from './pages/Login';
 // import ModifyUser from './pages/ModifyUser';
-// import Home from './pages/Home';
+import Home from './pages/Home';
 // import Post from './pages/Post';
-// import Register from './pages/Register';
+import Register from './pages/Register';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const Container = styled.div`
     background-color: ${props => props.darkMode ? 'black' : 'lightblue'};
@@ -36,10 +37,22 @@ function App () {
 
   return (
     <Container darkMode={darkMode}>
-      <NavBar />
-      <ScrollArea>
-        <SearchResults title="Search results for 'lorem'" />
-      </ScrollArea>
+      <Router>
+        <NavBar />
+        <ScrollArea>
+          <Switch>
+              <Route exact path='/'>
+            <Home />
+          </Route>
+              <Route exact path='/login'>
+            <Login />
+          </Route>
+              <Route exact path='/register'>
+            <Register />
+          </Route>
+            </Switch>
+        </ScrollArea>
+      </Router>
       <FooterContainer>
         <Footer />
       </FooterContainer>

@@ -4,6 +4,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDarkMode } from '../redux/localSettingsRedux';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     height: 60px;
@@ -55,11 +56,17 @@ const NavBar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Logo>MDBlog</Logo>
+          <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
+            <Logo>MDBlog</Logo>
+          </Link>
         </Left>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>LOGIN</MenuItem>
+          <Link to='/register' style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuItem>REGISTER</MenuItem>
+          </Link>
+          <Link to='/login' style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuItem>LOGIN</MenuItem>
+          </Link>
           <MenuItem>
             {darkMode ? <LightModeIcon onClick={() => changeMode()} /> : <DarkModeIcon onClick={() => changeMode()} />}
           </MenuItem>
