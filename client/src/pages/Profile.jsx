@@ -55,7 +55,7 @@ const Profile = () => {
     <Container>
       <Background>
         <DataContainer>
-          <InfoContainer><UserName>jcarter</UserName>
+          <InfoContainer><UserName>carter</UserName>
             <Email>jcarter@county-general.org</Email>
           </InfoContainer>
           <Avatar value='carter' round src='https://upload.wikimedia.org/wikipedia/en/9/99/Dr_carter.jpg' />
