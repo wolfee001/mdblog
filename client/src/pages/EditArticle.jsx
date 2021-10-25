@@ -7,7 +7,7 @@ import toc from 'remark-toc';
 import highlight from 'rehype-highlight';
 import '../style/md.css';
 import { useFilePicker } from 'use-file-picker';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { request } from '../requestMethods';
 import { useSelector } from 'react-redux';
 
@@ -251,16 +251,30 @@ const EditArticle = () => {
     }
   }, [user, id]);
 
-  const [onSave, setOnSave] = useState(false);
+  const [onFetch, setOnFetch] = useState(false);
 
   const save = async () => {
-    setOnSave(true);
+    setOnFetch(true);
     try {
       await request.post(`/post/edit/${id}`, article, { headers: { Authorization: `Bearer ${user.currentUser.accessToken}` } });
     } catch (err) {
       console.log(err);
     }
-    setOnSave(false);
+    setOnFetch(false);
+  };
+
+  const history = useHistory();
+
+  const deleteArticle = async () => {
+    setOnFetch(true);
+    try {
+      await request.delete(`/post/${id}`, { headers: { Authorization: `Bearer ${user.currentUser.accessToken}` } });
+      setOnFetch(false);
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+    }
+    setOnFetch(false);
   };
 
   return (
@@ -307,7 +321,8 @@ const EditArticle = () => {
             </CheckBoxWrapper>
           </MiscElement>
           <MiscElement>
-            <Button disabled={onSave} onClick={() => save()}>SAVE</Button>
+            <Button disabled={onFetch} onClick={() => save()}>SAVE</Button>
+            <Button disabled={onFetch} onClick={() => deleteArticle()}>DELETE</Button>
           </MiscElement>
         </MiscContainer>
       </HeaderContainer>

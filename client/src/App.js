@@ -57,7 +57,7 @@ function App () {
             <Route path='/edit/:id'>
               <EditArticle />
             </Route>
-            <Route path='/profile'>
+            <Route path='/profile/:username'>
               <Profile />
             </Route>
           </Switch>

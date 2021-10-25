@@ -69,6 +69,14 @@ const NavBar = () => {
     }
   };
 
+  const openMyArticles = async () => {
+    try {
+      history.push(`/profile/${user.currentUser.user.username}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -86,6 +94,7 @@ const NavBar = () => {
               </MenuItem>
             </Link>
             <MenuItem onClick={() => { createArticle(); }}>CREATE ARTICLE</MenuItem>
+            <MenuItem onClick={() => { openMyArticles(); }}>MY ARTICLES</MenuItem>
             <MenuItem onClick={() => { dispatch(clearUser()); }}>LOGOUT</MenuItem>
              </Right>)
           : (<Right>

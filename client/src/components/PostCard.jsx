@@ -15,10 +15,20 @@ const Info = styled.div`
     flex-direction: ${props => props.imagePosition === 'top' ? 'column' : 'row'};
 `;
 
+const ImageContainer = styled.div`
+    width: ${props => props.imagePosition === 'top' ? '100%' : '200px'};
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-size: 2rem;
+    font-weight: bold;
+`;
+
 const Image = styled.img`
-    width: 100%;
-    max-width: ${props => props.imagePosition === 'top' ? '-1' : '200'}px;
-    max-height: 100%;
+    max-width:100%;
+    max-height:100%;
 `;
 
 const Texts = styled.div`
@@ -44,7 +54,9 @@ const PostCard = ({ post, imagePosition = 'top' }) => {
   return (
     <Container>
       <Info imagePosition={imagePosition}>
-        <Image src={post.img} imagePosition={imagePosition} />
+        <ImageContainer imagePosition={imagePosition}>
+          {post.image ? <Image src={post.image} /> : 'IMAGE'}
+        </ImageContainer>
         <Texts>
           <Title>{post.title}</Title>
           <Author>{post.author}</Author>
