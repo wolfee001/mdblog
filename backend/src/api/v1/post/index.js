@@ -1,6 +1,7 @@
 const express = require('express');
-const { verifyToken } = require('../middleware/jwt');
+const { verifyToken, parseToken } = require('../middleware/jwt');
 const Post = require('../../../model/Post');
+const User = require('../../../model/User');
 
 const router = express.Router();
 
@@ -56,6 +57,52 @@ router.post('/edit/:id', verifyToken, async (req, res) => {
       $set: req.body
     }, { new: true });
     res.status(200).json();
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
+router.delete('/:id', verifyToken, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.authorID !== req.user.id) {
+      throw new Error('unauthorized');
+    }
+
+    await Post.findByIdAndDelete(req.params.id);
+    res.status(200).json();
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
+router.get('/user/:username', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    let jwtUser = null;
+    try {
+      jwtUser = parseToken(req);
+    } catch (err) {}
+    const isItMe = jwtUser?.id === user.id;
+    const filter = {
+      authorID: user._id
+    };
+    if (!isItMe) {
+      filter.public = true;
+    }
+    const posts = await Post.find(filter);
+
+    const result = posts.map(element => ({
+      image: element.image,
+      title: element.title,
+      short: element.short,
+      text: element.text,
+      public: element.public,
+      categories: element.categories,
+      id: element._id
+    }));
+
+    res.status(200).json({ posts: result });
   } catch (err) {
     res.status(500).json({ err });
   }

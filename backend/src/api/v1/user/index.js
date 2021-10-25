@@ -49,4 +49,19 @@ router.delete('/delete', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/:username', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const retVal = {
+      username: user.username,
+      name: user.name,
+      email: user.emailIsPublic ? user.email : null,
+      avatar: user.avatar
+    };
+    res.status(200).json(retVal);
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
 module.exports = router;
