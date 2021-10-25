@@ -18,7 +18,7 @@ const Info = styled.div`
 const Image = styled.img`
     width: 100%;
     max-width: ${props => props.imagePosition === 'top' ? '-1' : '200'}px;
-    height: auto;
+    max-height: 100%;
 `;
 
 const Texts = styled.div`

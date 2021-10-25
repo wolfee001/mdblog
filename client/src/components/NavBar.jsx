@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDarkMode, clearUser } from '../redux/localSettingsRedux';
 import { Link } from 'react-router-dom';
 import Avatar from 'react-avatar';
+import { request } from '../requestMethods';
+import { useHistory } from 'react-router';
 
 const Container = styled.div`
     height: 60px;
@@ -50,12 +52,22 @@ const MenuItem = styled.div`
 const NavBar = () => {
   const darkMode = useSelector(state => state.localSettings.darkMode);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const changeMode = () => {
     dispatch(setDarkMode(!darkMode));
   };
 
   const user = useSelector(state => state.localSettings.user);
+
+  const createArticle = async () => {
+    try {
+      const res = await request.put('/post/create', {}, { headers: { Authorization: `Bearer ${user.currentUser.accessToken}` } });
+      history.push(`/edit/${res.data.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container>
@@ -73,9 +85,9 @@ const NavBar = () => {
                 {user.currentUser.user.username}
               </MenuItem>
             </Link>
-            <MenuItem>CREATE ARTICLE</MenuItem>
+            <MenuItem onClick={() => { createArticle(); }}>CREATE ARTICLE</MenuItem>
             <MenuItem onClick={() => { dispatch(clearUser()); }}>LOGOUT</MenuItem>
-          </Right>)
+             </Right>)
           : (<Right>
             <Link to='/register' style={{ textDecoration: 'none', color: 'black' }}>
               <MenuItem>REGISTER</MenuItem>
@@ -83,7 +95,7 @@ const NavBar = () => {
             <Link to='/login' style={{ textDecoration: 'none', color: 'black' }}>
               <MenuItem>LOGIN</MenuItem>
             </Link>
-          </Right>)}
+             </Right>)}
         <MenuItem>
           {darkMode ? <LightModeIcon onClick={() => changeMode()} /> : <DarkModeIcon onClick={() => changeMode()} />}
         </MenuItem>

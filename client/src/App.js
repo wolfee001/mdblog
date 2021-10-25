@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 // import SearchResults from './pages/SearchResults';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import ModifyUser from './pages/ModifyUser';
 import Home from './pages/Home';
 // import Post from './pages/Post';
 import Register from './pages/Register';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import EditArticle from './pages/EditArticle';
 
 const Container = styled.div`
     background-color: ${props => props.darkMode ? 'black' : 'lightblue'};
@@ -44,14 +45,20 @@ function App () {
             <Route exact path='/'>
               <Home />
             </Route>
-            <Route exact path='/login'>
+            <Route path='/login'>
               <Login />
             </Route>
-            <Route exact path='/register'>
+            <Route path='/register'>
               <Register />
             </Route>
-            <Route exact path='/modify'>
+            <Route path='/modify'>
               <ModifyUser />
+            </Route>
+            <Route path='/edit/:id'>
+              <EditArticle />
+            </Route>
+            <Route path='/profile'>
+              <Profile />
             </Route>
           </Switch>
         </ScrollArea>
